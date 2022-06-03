@@ -1,0 +1,95 @@
+<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+
+  <!-- <p>
+    <label for="fName">F Name</label>
+    <input type="text" #fname="ngModel" name="fName" ngModel>
+  </p> -->
+
+  <p>
+    <label for="firstName">First Name</label>
+    <!-- two way data binding with [(ngModel)]="..." -->
+    <input type="text" id="firstName" name="firstName" [(ngModel)]="contact.firstName">
+  </p>
+
+  <p>
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName" [(ngModel)]="contact.lastName">
+  </p>
+
+  <p>
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" [(ngModel)]="contact.email">
+  </p>
+
+  <p>
+    <label for="gender">Gender</label>
+      <input type="radio" value="male" id="gender" name="gender" [(ngModel)]="contact.gender"> Male
+      <input type="radio" value="female" id="gender" name="gender" [(ngModel)]="contact.gender"> Female
+      <input type="radio" value="fluid" id="gender" name="gender" [(ngModel)]="contact.gender"> Fluid
+  </p>
+
+  <p>
+    <label for="isMarried">Married</label>
+    <input type="checkbox" id="isMarried" name="isMarried" [(ngModel)]="contact.isMarried">
+  </p>
+
+  <p>
+    <label for="country"></label>
+    <select name="country" id="country" [(ngModel)]="contact.country">
+      <option selected="" value=""></option>
+      <option [ngValue]="c.id" *ngFor="let c of countryList">
+        {{c.name}}
+      </option>
+    </select>
+  </p>
+
+  <div ngModelGroup="address">
+
+    <p>
+      <label for="city">City</label>
+      <input type="text" name="city" [(ngModel)]="contact.address.city">
+    </p>
+
+    <p>
+      <label for="street">Street</label>
+      <input type="text" name="street" [(ngModel)]="contact.address.street">
+    </p>
+
+    <p>
+      <label for="pinCode">Pin Code</label>
+      <input type="text" name="pinCode" [(ngModel)]="contact.address.pinCode">
+    </p>
+  </div>
+
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+
+  <p>
+    <button type="button" (click)="changeCountry()">Change Country</button>
+    <button type="button" (click)="setDefault()">Set Default</button>
+    <button type="button" (click)="reset(contactForm)">Reset</button>
+    <!-- Template reference method patchValue to change SOME of the values -->
+    <button type="button" (click)="patchValue()">Patch Value</button>
+    <!-- Template reference method to set value of nested FormGroup -->
+    <button type="button" (click)="changeAddress()">Change Address</button>
+  </p>
+
+<!-- .value returns the object containing the value of every FormControl -->
+  <pre>Value: {{contactForm.value | json}}</pre>
+<!-- .valid returns true if the form is Valid, else returns false -->
+  <pre>Valid: {{contactForm.valid}}</pre>
+<!-- .touched True if the user has entered a value in at least in one field -->
+  <pre>Touched: {{contactForm.touched}} </pre>
+  <pre>Pristine: {{contactForm.pristine}}</pre>
+  <pre>Dirty: {{contactForm.dirty}}</pre>
+<!-- .submitted Returns trus if the form is submitted, else false -->
+  <pre>Submitted: {{contactForm.submitted}}</pre>
+
+  <pre>contactForm.value.firstName: {{contactForm.value.firstName}}</pre>
+<!-- Assigning reference to individual field: #fname="ngModel" -->
+  <!-- <pre>Value: {{fname.value}}</pre>
+  <pre>valid: {{fname.valid}}</pre>
+  <pre>invalid: {{fname.invalid}}</pre>
+  <pre>touched: {{fname.touched}}</pre> -->
+</form>
